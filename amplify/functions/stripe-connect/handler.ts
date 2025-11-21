@@ -11,12 +11,24 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     const { action, accountId } = body
 
     if (action === 'create') {
-      // Create a new Connect account
+      // Create a new Connect account with simplified defaults
       const account = await stripe.accounts.create({
         type: 'express',
         capabilities: {
           card_payments: { requested: true },
           transfers: { requested: true },
+        },
+        business_type: 'individual', // Default to individual, not business
+        business_profile: {
+          mcc: '8398', // Charitable and Social Service Organizations
+          product_description: 'Personal fundraising campaign',
+        },
+        settings: {
+          payouts: {
+            schedule: {
+              interval: 'daily', // Fastest payout schedule
+            },
+          },
         },
       })
 
@@ -27,7 +39,8 @@ export const handler: APIGatewayProxyHandler = async (event) => {
         return_url: `${process.env.APP_URL}/create?account=${account.id}`,
         type: 'account_onboarding',
         collection_options: {
-          fields: 'eventually_due',
+          fields: 'eventually_due', // Only collect required fields
+          future_requirements: 'omit', // Don't ask for future requirements upfront
         },
       })
 

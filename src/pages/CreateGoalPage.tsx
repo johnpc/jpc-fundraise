@@ -7,6 +7,7 @@ import { generateClient } from 'aws-amplify/data'
 import type { Schema } from '../../amplify/data/resource'
 import outputs from '../../amplify_outputs.json'
 import bcrypt from 'bcryptjs'
+import Swal from 'sweetalert2'
 
 const client = generateClient<Schema>()
 
@@ -97,10 +98,11 @@ export function CreateGoalPage() {
       }
     } catch (error) {
       console.error('Stripe Connect error:', error)
-      alert(
-        'Failed to start bank account connection.\n\nError: ' +
-          (error as Error).message
-      )
+      await Swal.fire({
+        icon: 'error',
+        title: 'Connection Failed',
+        text: `Failed to start bank account connection.\n\nError: ${(error as Error).message}`,
+      })
       setIsConnectingStripe(false)
     }
   }
@@ -115,9 +117,11 @@ export function CreateGoalPage() {
 
   const onSubmit = async (data: GoalFormData) => {
     if (Math.abs(totalMilestoneAmount - watchedTarget) > 0.01) {
-      alert(
-        `Milestone amounts ($${totalMilestoneAmount.toFixed(2)}) must equal your target ($${watchedTarget.toFixed(2)})`
-      )
+      await Swal.fire({
+        icon: 'warning',
+        title: 'Milestone Mismatch',
+        text: `Milestone amounts ($${totalMilestoneAmount.toFixed(2)}) must equal your target ($${watchedTarget.toFixed(2)})`,
+      })
       return
     }
 
@@ -157,7 +161,11 @@ export function CreateGoalPage() {
       navigate(`/goal/${goalId}/edit/${editPassword}?created=true`)
     } catch (error) {
       console.error('Error creating goal:', error)
-      alert('Failed to create goal. Please try again.')
+      await Swal.fire({
+        icon: 'error',
+        title: 'Creation Failed',
+        text: 'Failed to create goal. Please try again.',
+      })
     } finally {
       setIsSubmitting(false)
     }
