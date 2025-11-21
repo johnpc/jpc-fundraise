@@ -179,9 +179,17 @@ VITE_STRIPE_PUBLISHABLE_KEY=pk_test_...
 1. Set production Stripe secret key:
 
    ```bash
-   # Set production secret (stored in AWS Secrets Manager)
-   npx ampx secret set STRIPE_SECRET_KEY --profile personal
-   # Paste your sk_live_... key when prompted
+   # Set production secret in AWS Secrets Manager
+   aws secretsmanager create-secret \
+     --name STRIPE_SECRET_KEY \
+     --secret-string "sk_live_..." \
+     --profile personal
+
+   # Or update existing secret:
+   aws secretsmanager update-secret \
+     --secret-id STRIPE_SECRET_KEY \
+     --secret-string "sk_live_..." \
+     --profile personal
    ```
 
 2. Update Stripe Connect function environment:
@@ -199,8 +207,9 @@ VITE_STRIPE_PUBLISHABLE_KEY=pk_test_...
    VITE_STRIPE_PUBLISHABLE_KEY=pk_live_...
    ```
 
-4. Deploy:
+4. Generate production config and deploy:
    ```bash
+   npm run prod-config  # Generates amplify_outputs.json from deployed app
    npm run build
    npx ampx pipeline-deploy --branch main --profile personal
    ```

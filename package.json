@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "prepare": "husky",
     "sandbox": "npx ampx sandbox --profile personal",
-    "sandbox:delete": "npx ampx sandbox delete --profile personal"
+    "sandbox:delete": "npx ampx sandbox delete --profile personal",
+    "prod-config": "npx ampx generate outputs --app-id dqjjgp2f7luac --branch main --profile personal"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
