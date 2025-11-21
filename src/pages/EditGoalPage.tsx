@@ -34,8 +34,9 @@ export function EditGoalPage() {
   const [goal, setGoal] = useState<{
     id: string
     name: string
-    description: string
+    description: string | null
     targetAmount: number
+    stripeAccountId: string
   } | null>(null)
   const [existingMilestones, setExistingMilestones] = useState<
     Array<{ id: string; name: string; targetAmount: number; order: number }>

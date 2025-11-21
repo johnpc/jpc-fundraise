@@ -16,8 +16,9 @@ function GoalPage() {
   const [goal, setGoal] = useState<{
     id: string
     name: string
-    description: string
+    description: string | null
     targetAmount: number
+    stripeAccountId: string
   } | null>(null)
   const [milestones, setMilestones] = useState<
     Array<{ id: string; name: string; targetAmount: number; order: number }>
@@ -26,8 +27,9 @@ function GoalPage() {
     Array<{
       id: string
       amount: number
-      donorName: string
-      message: string
+      donorName: string | null
+      message: string | null
+      status: string | null
       createdAt: string
     }>
   >([])
@@ -198,7 +200,7 @@ function GoalPage() {
           body: JSON.stringify({
             goalId,
             amount: parseFloat(result.value.amount),
-            stripeAccountId: goal.stripeAccountId,
+            stripeAccountId: goal?.stripeAccountId,
             donorName: result.value.donorName || undefined,
             message: result.value.message || undefined,
           }),
