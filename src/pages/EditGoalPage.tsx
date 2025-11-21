@@ -9,6 +9,7 @@ import bcrypt from 'bcryptjs'
 import Swal from 'sweetalert2'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
+import { Footer } from '../components/Footer'
 
 const client = generateClient<Schema>()
 
@@ -619,6 +620,8 @@ export function EditGoalPage() {
             {isSubmitting ? 'Saving...' : 'Save Changes'}
           </button>
         </form>
+
+        <Footer />
       </div>
     </div>
   )

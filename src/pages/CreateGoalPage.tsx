@@ -8,6 +8,7 @@ import type { Schema } from '../../amplify/data/resource'
 import outputs from '../../amplify_outputs.json'
 import bcrypt from 'bcryptjs'
 import Swal from 'sweetalert2'
+import { Footer } from '../components/Footer'
 
 const client = generateClient<Schema>()
 
@@ -556,6 +557,8 @@ export function CreateGoalPage() {
             </button>
           </div>
         </form>
+
+        <Footer />
       </div>
     </div>
   )

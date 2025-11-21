@@ -6,6 +6,7 @@ import outputs from '../../amplify_outputs.json'
 import Swal from 'sweetalert2'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
+import { Footer } from '../components/Footer'
 
 const client = generateClient<Schema>()
 
@@ -450,6 +451,8 @@ function GoalPage() {
             </div>
           )}
         </div>
+
+        <Footer />
       </div>
     </div>
   )
