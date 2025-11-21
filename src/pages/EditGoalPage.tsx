@@ -8,6 +8,7 @@ import type { Schema } from '../../amplify/data/resource'
 import bcrypt from 'bcryptjs'
 import Swal from 'sweetalert2'
 import ReactMarkdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw'
 
 const client = generateClient<Schema>()
 
@@ -459,7 +460,9 @@ export function EditGoalPage() {
               <div className="mt-2 p-4 border border-gray-200 rounded-lg bg-gray-50">
                 <p className="text-xs text-gray-500 mb-2">Preview:</p>
                 <div className="prose prose-sm max-w-none">
-                  <ReactMarkdown>{watch('description')}</ReactMarkdown>
+                  <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                    {watch('description')}
+                  </ReactMarkdown>
                 </div>
               </div>
             )}

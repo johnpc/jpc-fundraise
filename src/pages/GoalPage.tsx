@@ -5,6 +5,7 @@ import type { Schema } from '../../amplify/data/resource'
 import outputs from '../../amplify_outputs.json'
 import Swal from 'sweetalert2'
 import ReactMarkdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw'
 
 const client = generateClient<Schema>()
 
@@ -285,7 +286,9 @@ function GoalPage() {
           </h1>
           {goal.description && (
             <div className="prose prose-lg max-w-none mt-3 text-gray-600">
-              <ReactMarkdown>{goal.description}</ReactMarkdown>
+              <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                {goal.description}
+              </ReactMarkdown>
             </div>
           )}
         </div>
