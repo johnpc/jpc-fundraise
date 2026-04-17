@@ -417,18 +417,9 @@ function GoalPage() {
                     key={donation.id}
                     className="border-b border-gray-100 pb-4 last:border-0"
                   >
-                    <div className="flex justify-between items-start mb-2">
-                      <p className="font-semibold text-gray-900">
-                        {donation.donorName || 'Anonymous'}
-                      </p>
-                      <p className="font-bold text-purple-600">
-                        $
-                        {donation.amount.toLocaleString('en-US', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </p>
-                    </div>
+                    <p className="font-semibold text-gray-900 mb-2">
+                      {donation.donorName || 'Anonymous'}
+                    </p>
                     {donation.message && (
                       <p className="text-gray-600 text-sm mb-2">
                         {donation.message}
